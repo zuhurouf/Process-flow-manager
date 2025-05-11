@@ -1,25 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import WorkflowEditor from './components/workfloweditor';
+import Dashboard from './components/dashboard';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: '1rem' }}>
+      <h1>Process Flow Creator for Logistics Optimization</h1>
+      <WorkflowEditor />
+      <Dashboard />
     </div>
   );
-}
+};
 
 export default App;
