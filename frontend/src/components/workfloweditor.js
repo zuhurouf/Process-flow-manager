@@ -6,11 +6,11 @@ import {
   useNodesState,
   useEdgesState,
 } from '@xyflow/react';
-import '@xyflow/react/dist/style.css'; // Import default styles
+import '@xyflow/react/dist/style.css'; 
 
 import axios from 'axios'; // For API calls
 
-// An initial (empty) state. In production, you may load this from the server.
+
 const initialNodes = [];
 const initialEdges = [];
 
@@ -61,9 +61,10 @@ const WorkflowEditor = () => {
   const saveWorkflow = async () => {
     // Prepare the workflow object.
     const workflow = {
-      name: 'New Workflow',  // For example
+      name: 'New Workflow',
       nodes: nodes.map((node) => ({
         id: node.id,
+        type: node.type || 'default',
         label: node.data.label,
         position: node.position,
       })),
@@ -71,17 +72,17 @@ const WorkflowEditor = () => {
         id: edge.id,
         source: edge.source,
         target: edge.target,
-        condition: edge.label,  // using the label to store the condition data
+        condition: edge.label,
       })),
     };
-
+    console.log(workflow);
     try {
       // Example POST using axios. Adjust the URL and payload as needed.
+      const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDY5NzM4OTYsImV4cCI6MTc0Njk3NzQ5Nn0.FiDD3trEIbeyNb8GJzdsYxWhSyzlV8IDoMFwTxqahZU"
       const response = await axios.post('http://localhost:5000/workflows', workflow, {
         headers: {
           'Content-Type': 'application/json',
-          // Include your JWT token if necessary:
-          // 'Authorization': 'Bearer <your_token>'
+          'Authorization': token,
         },
       });
       console.log('Workflow saved!', response.data);
