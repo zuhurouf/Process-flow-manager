@@ -2,15 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Workflow = require('../models/workflow');
 const Task = require('../models/task');
-// JWT middleware can be added here if you prefer to secure all routes in this router.
-const authenticateJWT = require('../middleware/authenticateJWT'); // create this as a shared file if needed
+const authenticateJWT = require('../middleware/authenticateJWT');
 
 
 // Create a Workflow
 router.post('/', authenticateJWT, async (req, res) => {
   try {
-    const { name, nodes, transitions } = req.body;
-    let newWorkflow = new Workflow({ name, nodes, transitions });
+    const { name, nodes, edges } = req.body;
+    let newWorkflow = new Workflow({ name, nodes, edges });
     newWorkflow = await newWorkflow.save();
     res.status(201).json(newWorkflow);
   } catch (error) {
